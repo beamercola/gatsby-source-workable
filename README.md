@@ -1,4 +1,5 @@
 # gatsby-source-workable
+
 > Loads job openings from Workable into Gatsby.js
 
 ## Installation
@@ -12,6 +13,7 @@ npm install gatsby-source-workable
 To use this source you need to supply a Workable API key and your Workable subdomain. You can create a Workable API key by logging into Workable and going to `Integrations > Access Token`. You can see your subdomain by logging into your Workable backend and checking the URL, e.g. `mycompany.workable.com`.
 
 Next, edit `gatsby-config.js` to use the plugin:
+
 ```javascript
 {
     ...
@@ -36,6 +38,7 @@ If you need more detailed information for each job opening you can also enable `
 ## Querying
 
 You can query the nodes created by the plugin as follows:
+
 ```graphql
 {
     allWorkableJob {
@@ -47,4 +50,5 @@ You can query the nodes created by the plugin as follows:
     }
 }
 ```
+
 Detailed field descriptions are also available on [Workable's API Documentation](https://workable.readme.io/docs/jobs).
