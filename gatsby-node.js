@@ -2,6 +2,12 @@
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+var _axiosRateLimit = require("axios-rate-limit");
+
+var _axiosRateLimit2 = _interopRequireDefault(_axiosRateLimit);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 const crypto = require("crypto");
@@ -14,6 +20,11 @@ exports.sourceNodes = (() => {
       headers: {
         Authorization: `Bearer ${apiKey}`
       }
+    });
+
+    const limited = (0, _axiosRateLimit2.default)(axiosClient, {
+      maxRequests: 8,
+      perMilliseconds: 10000
     });
 
     // Get list of all jobs
@@ -31,7 +42,7 @@ exports.sourceNodes = (() => {
         const job = _step.value;
 
         // Fetch job details if needed
-        const jobData = fetchJobDetails ? (yield axiosClient.get(`/jobs/${job.shortcode}`)).data : job;
+        const jobData = fetchJobDetails ? (yield limited.get(`/jobs/${job.shortcode}`)).data : job;
 
         const jsonString = JSON.stringify(jobData);
         const gatsbyNode = _extends({}, jobData, {

@@ -1,3 +1,4 @@
+import rateLimit from "axios-rate-limit"
 const crypto = require("crypto")
 const axios = require("axios")
 
@@ -12,6 +13,11 @@ exports.sourceNodes = async (
     },
   })
 
+  const limited = rateLimit(axiosClient, {
+    maxRequests: 8,
+    perMilliseconds: 10000,
+  })
+
   // Get list of all jobs
   const {
     data: { jobs },
@@ -20,7 +26,7 @@ exports.sourceNodes = async (
   for (const job of jobs) {
     // Fetch job details if needed
     const jobData = fetchJobDetails
-      ? (await axiosClient.get(`/jobs/${job.shortcode}`)).data
+      ? (await limited.get(`/jobs/${job.shortcode}`)).data
       : job
 
     const jsonString = JSON.stringify(jobData)
