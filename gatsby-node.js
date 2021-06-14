@@ -23,8 +23,7 @@ exports.sourceNodes = (() => {
     });
 
     const limited = (0, _axiosRateLimit2.default)(axiosClient, {
-      maxRequests: 8,
-      perMilliseconds: 10000
+      maxRPS: 1
     });
 
     // Get list of all jobs
@@ -32,17 +31,22 @@ exports.sourceNodes = (() => {
     var _ref2 = yield axiosClient.get("/jobs", { params: queryParams });
 
     const jobs = _ref2.data.jobs;
+
+
+    console.log("[WORKABLE] Total Jobs:", jobs.length);
+
     var _iteratorNormalCompletion = true;
     var _didIteratorError = false;
     var _iteratorError = undefined;
 
     try {
-
       for (var _iterator = jobs[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
         const job = _step.value;
 
         // Fetch job details if needed
         const jobData = fetchJobDetails ? (yield limited.get(`/jobs/${job.shortcode}`)).data : job;
+
+        console.log("[WORKABLE] Adding:", job.shortcode);
 
         const jsonString = JSON.stringify(jobData);
         const gatsbyNode = _extends({}, jobData, {

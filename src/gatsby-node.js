@@ -14,8 +14,7 @@ exports.sourceNodes = async (
   })
 
   const limited = rateLimit(axiosClient, {
-    maxRequests: 8,
-    perMilliseconds: 10000,
+    maxRPS: 1,
   })
 
   // Get list of all jobs
@@ -23,11 +22,15 @@ exports.sourceNodes = async (
     data: { jobs },
   } = await axiosClient.get("/jobs", { params: queryParams })
 
+  console.log("[WORKABLE] Total Jobs:", jobs.length)
+
   for (const job of jobs) {
     // Fetch job details if needed
     const jobData = fetchJobDetails
       ? (await limited.get(`/jobs/${job.shortcode}`)).data
       : job
+
+    console.log("[WORKABLE] Adding:", job.shortcode)
 
     const jsonString = JSON.stringify(jobData)
     const gatsbyNode = {

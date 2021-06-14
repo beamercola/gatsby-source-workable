@@ -1,7 +1,6 @@
 {
   "name": "beamercola-gatsby-source-workable",
-  "private": true,
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "Gatsby source plugin for loading job openings from Workable",
   "main": "gatsby-node.js",
   "scripts": {
@@ -15,11 +14,6 @@
     "url": "https://github.com/tumblbug/gatsby-source-workable/issues"
   },
   "homepage": "https://github.com/tumblbug/gatsby-source-workable",
-  "keywords": [
-    "gatsby",
-    "gatsby-plugin",
-    "gatsby-source-plugin"
-  ],
   "author": "Bjorn Tegelund <bjorn@tumblbug.com>",
   "license": "MIT",
   "dependencies": {
