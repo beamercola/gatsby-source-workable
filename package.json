@@ -1,5 +1,6 @@
 {
   "name": "beamercola-gatsby-source-workable",
+  "private": true,
   "version": "1.1.4",
   "description": "Gatsby source plugin for loading job openings from Workable",
   "main": "gatsby-node.js",
