@@ -23,7 +23,8 @@ exports.sourceNodes = (() => {
     });
 
     const limited = (0, _axiosRateLimit2.default)(axiosClient, {
-      maxRPS: 1
+      maxRequests: 8,
+      perMilliseconds: 10000
     });
 
     // Get list of all jobs
