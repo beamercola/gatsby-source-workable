@@ -14,7 +14,7 @@ exports.sourceNodes = async (
   })
 
   const limited = rateLimit(axiosClient, {
-    maxRequests: 8,
+    maxRequests: 5,
     perMilliseconds: 10000,
   })
 

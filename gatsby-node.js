@@ -23,7 +23,7 @@ exports.sourceNodes = (() => {
     });
 
     const limited = (0, _axiosRateLimit2.default)(axiosClient, {
-      maxRequests: 8,
+      maxRequests: 5,
       perMilliseconds: 10000
     });
 
